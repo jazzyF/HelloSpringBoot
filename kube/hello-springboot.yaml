@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-springboot
+  labels:
+    app: hallo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hallo
+  template:
+    metadata:
+      labels:
+        app: hallo
+    spec:
+      containers:
+        - name: hello-spring-container
+          image: localhost:5000/hello-springboot
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-svc
+spec:
+  selector:
+    app: hallo
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP

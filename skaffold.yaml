@@ -1,0 +1,15 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+metadata:
+  name: hellospringboot
+build:
+  local:
+    push: true
+  artifacts:
+    - image: localhost:5000/hello-springboot
+      docker:
+        dockerfile: Dockerfile
+manifests:
+  rawYaml:
+    - kube/front-end-service.yaml
+    - kube/hello-springboot.yaml
